@@ -36,5 +36,16 @@ contract Metacircle {
     uint public postCount;
     uint public commentCount;
 
+    // User registration
+    function createUser(string memory _username, string memory _bio) public {
+        require(bytes(users[msg.sender].username).length == 0, "User already exists.");
+        users[msg.sender] = User(msg.sender, _username, _bio);
+    }
+
+    // Function to get the username from an account address
+    function getUsername(address _userAddress) public view returns(string memory) {
+        require(bytes(users[_userAddress].username).length != 0, "User does not exists.");
+        return users[_userAddress].username;
+    }
 
 }
